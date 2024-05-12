@@ -1,0 +1,11 @@
+ARG BASE_ID=20240512-01
+FROM ghcr.io/ppoi/devenv-base:${BASE_ID}
+
+ARG NODE_VERSION=lts
+ARG APT_PACKAGES=
+
+RUN /opt/setup-tools/install-n.sh ${NODE_VERSION}
+RUN /opt/setup-tools/install-apt-packages.sh ${APT_PACKAGES}
+
+USER vscode
+VOLUME /workspaces

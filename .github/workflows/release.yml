@@ -1,0 +1,63 @@
+name: "deploy"
+
+on:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  build-base-images:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Collect metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          tags: type=ref,event=tag
+      - name: Build base image
+        id: base
+        uses: docker/build-push-action@v5
+        with:
+          context: ./images
+          file: ./images/Containerfile
+          tags: ghcr.io/${{github.actor}}/devenv-base:${{steps.meta.outputs.version}}
+          labels: ${{ steps.meta.outputs.labels }}
+          push: true
+      - name: Build Type-ALPHA image
+        id: type-alpha
+        uses: docker/build-push-action@v5
+        with:
+          context: ./images/type-alpha
+          file: ./images/type-alpha/Containerfile
+          tags: ghcr.io/${{github.actor}}/devenv-type-alpha:${{steps.meta.outputs.version}}
+          labels: ${{ steps.meta.outputs.labels }}
+          push: true
+      - name: Build Type-BRAVO image
+        id: type-bravo
+        uses: docker/build-push-action@v5
+        with:
+          context: ./images/type-bravo
+          file: ./images/type-bravo/Containerfile
+          tags: ghcr.io/${{github.actor}}/devenv-type-bravo:${{steps.meta.outputs.version}}
+          labels: ${{ steps.meta.outputs.labels }}
+          push: true
+      - name: Build Type-CHARLIE image
+        id: type-charlie
+        uses: docker/build-push-action@v5
+        with:
+          context: ./images/type-charlie
+          file: ./images/type-charlie/Containerfile
+          tags: ghcr.io/${{github.actor}}/devenv-type-charlie:${{steps.meta.outputs.version}}
+          labels: ${{ steps.meta.outputs.labels }}
+          push: true
