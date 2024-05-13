@@ -40,6 +40,8 @@ jobs:
         with:
           context: ./images/type-alpha
           file: ./images/type-alpha/Containerfile
+          build-args: |
+            BASE_ID=${{steps.meta.outputs.version}}
           tags: ghcr.io/${{github.actor}}/devenv-type-alpha:${{steps.meta.outputs.version}}
           labels: ${{ steps.meta.outputs.labels }}
           push: true
@@ -49,6 +51,8 @@ jobs:
         with:
           context: ./images/type-bravo
           file: ./images/type-bravo/Containerfile
+          build-args: |
+            BASE_ID=${{steps.meta.outputs.version}}
           tags: ghcr.io/${{github.actor}}/devenv-type-bravo:${{steps.meta.outputs.version}}
           labels: ${{ steps.meta.outputs.labels }}
           push: true
@@ -58,6 +62,8 @@ jobs:
         with:
           context: ./images/type-charlie
           file: ./images/type-charlie/Containerfile
+          build-args: |
+            BASE_ID=${{steps.meta.outputs.version}}
           tags: ghcr.io/${{github.actor}}/devenv-type-charlie:${{steps.meta.outputs.version}}
           labels: ${{ steps.meta.outputs.labels }}
           push: true
