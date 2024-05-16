@@ -1,4 +1,4 @@
-FROM docker.io/debian:bullseye-20240423-slim
+FROM docker.io/debian:bookworm-20240513-slim
 
 ADD scripts /opt/setup-tools
 RUN chmod -R 755 /opt/setup-tools

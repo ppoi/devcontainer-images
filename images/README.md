@@ -12,8 +12,8 @@
 | Name | Description |
 | --- | --- |
 | Type-ALPHA | DevContainer for Node.js |
-| Type-Bravo | DevContainer for Java |
-| Type-Charile | DevContainer for Node.js & Java |
+| Type-BRAVO | DevContainer for Java |
+| Type-CHARLIE | DevContainer for Node.js & Java |
 
 ## Build ARGs
 | ARG | DESCRIPTION | DEFAULT | Images |
