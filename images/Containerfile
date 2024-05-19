@@ -3,13 +3,14 @@ FROM docker.io/debian:bookworm-20240513-slim
 ADD scripts /opt/setup-tools
 RUN chmod -R 755 /opt/setup-tools
 
-RUN /opt/setup-tools/install-apt-packages.sh sudo curl ca-certificates locales-all git zip unzip gpg openssl iproute2
+RUN /opt/setup-tools/install-apt-packages.sh sudo curl ca-certificates locales-all git zip unzip gpg openssl iproute2 iputils-ping net-tools
 
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor > /usr/share/keyrings/docker-archive-keyring.gpg \
     && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(. /etc/os-release && echo "$VERSION_CODENAME") stable" > /etc/apt/sources.list.d/docker.list
 RUN /opt/setup-tools/install-apt-packages.sh docker-ce-cli
 RUN groupadd --system docker
 RUN touch /var/run/docker.sock && chown root:docker /var/run/docker.sock
+ENV DOCKER_BUILDKIT=0
 
 RUN /opt/setup-tools/install-awscli.sh
 
