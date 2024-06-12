@@ -1,0 +1,8 @@
+{
+    "name": "devcontainer-images",
+    "image": "ghcr.io/ppoi/devenv-type-alpha:20240519-01",
+    "mounts": [
+        {"source": "/run/podman/podman.sock", "target": "/var/run/docker.sock", "type": "bind"}
+    ],
+    "postCreateCommand": "sudo chgrp docker /var/run/docker.sock"
+}

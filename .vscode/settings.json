@@ -4,9 +4,15 @@
         "editor.tabSize": 2,
         "editor.autoIndent": "keep",
     },
+    "[jsonc]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2,
+        "editor.autoIndent": "keep",
+    },
     "[github-actions-workflow]": {
         "editor.insertSpaces": true,
         "editor.tabSize": 2,
         "editor.autoIndent": "keep",
-    }
+    },
+    "terminal.integrated.defaultProfile.windows": "PowerShell"
 }
