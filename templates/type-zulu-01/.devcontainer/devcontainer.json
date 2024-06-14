@@ -1,0 +1,9 @@
+{
+  "name": "type-zulu-01",
+  "image": "ghcr.io/ppoi/devenv/images/${templateOption:imageType}:${templateOption:imageTag}",
+  "containerUser": "vscode",
+  "capAdd": ["AUDIT_WRITE", "NET_RAW"],
+  "postCreateCommand": {
+    "dood": "sudo chgrp docker /var/run/docker.sock"
+  }
+}

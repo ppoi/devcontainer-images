@@ -4,5 +4,18 @@
     "mounts": [
         {"source": "/run/podman/podman.sock", "target": "/var/run/docker.sock", "type": "bind"}
     ],
-    "postCreateCommand": "sudo chgrp docker /var/run/docker.sock"
+    "capAdd": ["AUDIT_WRITE"],
+    "postCreateCommand": {
+        "dood": "sudo chgrp docker /var/run/docker.sock",
+        "devcontainer-cli": "sudo npm i -g @devcontainers/cli"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "github.vscode-github-actions",
+                "ms-azuretools.vscode-docker",
+                "redhat.vscode-yaml"
+            ]
+        }
+    }
 }

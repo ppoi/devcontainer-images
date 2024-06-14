@@ -1,4 +1,4 @@
-FROM docker.io/debian:bookworm-20240513-slim
+FROM docker.io/debian:bookworm-20240612-slim
 
 ADD scripts /opt/setup-tools
 RUN chmod -R 755 /opt/setup-tools
@@ -40,4 +40,5 @@ __bash_prompt() {
 }
 __bash_prompt
 export PROMPT_DIRTRIM=4
+
 EOF

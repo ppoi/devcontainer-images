@@ -1,9 +1,9 @@
 ARG BASE_ID=20240612-01
-FROM ghcr.io/ppoi/devenv-base:${BASE_ID}
+FROM ghcr.io/ppoi/devcontainer-images/base:${BASE_ID}
 
 ARG JAVA_VERSION=21
 ARG NODE_VERSION=lts
-ARG MAVEN_VERSION=3.9.6
+ARG MAVEN_VERSION=3.9.7
 ARG APT_PACKAGES=
 
 RUN /opt/setup-tools/install-n.sh ${NODE_VERSION}

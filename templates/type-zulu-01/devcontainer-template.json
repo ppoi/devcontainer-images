@@ -1,0 +1,23 @@
+{
+  "id": "type-zulu-01",
+  "version": "1.0.0",
+  "name": "PodmanDevContainer",
+  "description": "DevContainer Template for Podman",
+  "documentationURL": "https://github.com/ppoi/devcontainer-images/tree/main/templates/type-zulu-01",
+  "licenseURL": "https://github.com/ppoi/devcontainer-images/blob/main/LICENSE",
+  "publisher": "Tsukuba Bunko",
+  "options": {
+    "imageType": {
+      "type": "string",
+      "description": "DevContainer Pre-build Image Type:",
+      "proposals": ["base", "type-alpha", "type-bravo", "type-charlie"],
+      "default": "type-charlie"
+    },
+    "imageTag": {
+      "type": "string",
+      "description": "DevContainer Pre-build Image Tag:",
+      "default": "20240619-01"
+    }
+  },
+  "platforms": ["JavaScript", "Java"]
+}
