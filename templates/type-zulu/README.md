@@ -1,3 +1,3 @@
-# Type ZULU 01
+# Type ZULU
 
 for Podman environment.
