@@ -1,4 +1,4 @@
-name: "deploy"
+name: "release images"
 
 on:
   push:
@@ -29,8 +29,8 @@ jobs:
         id: base
         uses: docker/build-push-action@v5
         with:
-          context: ./images
-          file: ./images/Containerfile
+          context: ./src
+          file: ./src/Containerfile
           tags: ghcr.io/${{github.actor}}/devcontainer-images/base:${{steps.meta.outputs.version}},ghcr.io/${{github.actor}}/devcontainer-images/base:latest
           labels: ${{ steps.meta.outputs.labels }}
           push: true
@@ -38,8 +38,8 @@ jobs:
         id: type-alpha
         uses: docker/build-push-action@v5
         with:
-          context: ./images/type-alpha
-          file: ./images/type-alpha/Containerfile
+          context: ./src/type-alpha
+          file: ./src/type-alpha/Containerfile
           build-args: |
             BASE_ID=${{steps.meta.outputs.version}}
           tags: ghcr.io/${{github.actor}}/devcontainer-images/type-alpha:${{steps.meta.outputs.version}},ghcr.io/${{github.actor}}/devcontainer-images/type-alpha:latest
@@ -49,8 +49,8 @@ jobs:
         id: type-bravo
         uses: docker/build-push-action@v5
         with:
-          context: ./images/type-bravo
-          file: ./images/type-bravo/Containerfile
+          context: ./src/type-bravo
+          file: ./src/type-bravo/Containerfile
           build-args: |
             BASE_ID=${{steps.meta.outputs.version}}
           tags: ghcr.io/${{github.actor}}/devcontainer-images/type-bravo:${{steps.meta.outputs.version}},ghcr.io/${{github.actor}}/devcontainer-images/type-bravo:latest
@@ -60,17 +60,10 @@ jobs:
         id: type-charlie
         uses: docker/build-push-action@v5
         with:
-          context: ./images/type-charlie
-          file: ./images/type-charlie/Containerfile
+          context: ./src/type-charlie
+          file: ./src/type-charlie/Containerfile
           build-args: |
             BASE_ID=${{steps.meta.outputs.version}}
           tags: ghcr.io/${{github.actor}}/devcontainer-images/type-charlie:${{steps.meta.outputs.version}},ghcr.io/${{github.actor}}/devcontainer-images/type-charilie:latest
           labels: ${{ steps.meta.outputs.labels }}
           push: true
-      - name: Build Templates
-        id: templates
-        uses: devcontainers/action@v1
-        with:
-          templates-namespace: ${{github.actor}}/devcontainer-templates
-          publish-templates: true
-          base-path-to-templates: ./templates

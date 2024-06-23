@@ -1,3 +1,0 @@
-# DevContainers Templates
-
-> UNDER CONSTRUCTION
