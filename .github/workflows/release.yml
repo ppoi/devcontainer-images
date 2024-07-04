@@ -64,6 +64,6 @@ jobs:
           file: ./src/type-charlie/Containerfile
           build-args: |
             BASE_ID=${{steps.meta.outputs.version}}
-          tags: ghcr.io/${{github.actor}}/devcontainer-images/type-charlie:${{steps.meta.outputs.version}},ghcr.io/${{github.actor}}/devcontainer-images/type-charilie:latest
+          tags: ghcr.io/${{github.actor}}/devcontainer-images/type-charlie:${{steps.meta.outputs.version}},ghcr.io/${{github.actor}}/devcontainer-images/type-charlie:latest
           labels: ${{ steps.meta.outputs.labels }}
           push: true
