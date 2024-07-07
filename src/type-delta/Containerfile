@@ -1,0 +1,9 @@
+ARG BASE_ID=2024070-01
+FROM ghcr.io/ppoi/devcontainer-images/base:${BASE_ID}
+
+ARG APT_PACKAGES=
+
+RUN /opt/setup-tools/install-apt-packages.sh python3 python3-pip python3-venv ${APT_PACKAGES}
+
+USER vscode
+VOLUME /workspaces

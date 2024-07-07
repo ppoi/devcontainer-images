@@ -1,4 +1,4 @@
-name: "release images"
+name: "Release DevContainers Images"
 
 on:
   push:
@@ -65,5 +65,16 @@ jobs:
           build-args: |
             BASE_ID=${{steps.meta.outputs.version}}
           tags: ghcr.io/${{github.actor}}/devcontainer-images/type-charlie:${{steps.meta.outputs.version}},ghcr.io/${{github.actor}}/devcontainer-images/type-charlie:latest
+          labels: ${{ steps.meta.outputs.labels }}
+          push: true
+      - name: Build Type-DELTA image
+        id: type-delta
+        uses: docker/build-push-action@v5
+        with:
+          context: ./src/type-charlie
+          file: ./src/type-charlie/Containerfile
+          build-args: |
+            BASE_ID=${{steps.meta.outputs.version}}
+          tags: ghcr.io/${{github.actor}}/devcontainer-images/type-delta:${{steps.meta.outputs.version}},ghcr.io/${{github.actor}}/devcontainer-images/type-delta:latest
           labels: ${{ steps.meta.outputs.labels }}
           push: true
