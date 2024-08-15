@@ -1,4 +1,4 @@
-FROM docker.io/debian:bookworm-20240722-slim
+FROM docker.io/debian:bookworm-20240812-slim
 
 ADD scripts /opt/setup-tools
 RUN chmod -R 755 /opt/setup-tools
@@ -10,7 +10,6 @@ RUN curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor > /u
 RUN /opt/setup-tools/install-apt-packages.sh docker-ce-cli
 RUN groupadd --system docker
 RUN touch /var/run/docker.sock && chown root:docker /var/run/docker.sock
-ENV DOCKER_BUILDKIT=0
 
 RUN /opt/setup-tools/install-awscli.sh
 
@@ -40,5 +39,7 @@ __bash_prompt() {
 }
 __bash_prompt
 export PROMPT_DIRTRIM=4
-
+if [ $(ls -al /var/run/docker.sock | awk '{print $4}') != 'docker' ]; then
+    sudo chgrp docker /var/run/docker.sock 2>&1 >/dev/null
+fi
 EOF
