@@ -28,5 +28,5 @@ sudo update-ca-certificates
 
 if which keytool > /dev/null; then
   echo "install CA cert into JVM default keystore."
-  sudo keytool -importcert -cacerts -alias ${CANAME} -storepass "${JVM_KEYSTORE_PASS:-"changeit"}" -trustcacerts -no-prompt -file "/usr/local/share/ca-certificates/${CANAME}.crt"
+  sudo keytool -importcert -cacerts -alias ${1} -storepass "${JVM_KEYSTORE_PASS:-"changeit"}" -trustcacerts -no-prompt -file "/usr/local/share/ca-certificates/${1}.crt"
 fi
