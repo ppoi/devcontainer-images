@@ -3,7 +3,7 @@ FROM docker.io/debian:bookworm-20240812-slim
 ADD scripts /opt/setup-tools
 RUN chmod -R 755 /opt/setup-tools
 
-RUN /opt/setup-tools/install-apt-packages.sh sudo curl ca-certificates locales-all git zip unzip gpg openssl iproute2 iputils-ping net-tools
+RUN /opt/setup-tools/install-apt-packages.sh sudo curl ca-certificates locales-all git zip unzip gpg openssl iproute2 iputils-ping net-tools procps socat
 
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor > /usr/share/keyrings/docker-archive-keyring.gpg \
     && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(. /etc/os-release && echo "$VERSION_CODENAME") stable" > /etc/apt/sources.list.d/docker.list
@@ -15,6 +15,19 @@ RUN /opt/setup-tools/install-awscli.sh
 
 RUN useradd --uid 1000 --create-home --shell /bin/bash vscode && usermod -aG docker vscode && echo "vscode ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/vscode
 RUN tee -a /home/vscode/.bashrc <<"EOF"
+# docker socket proxy
+__docker_proxy() {
+    PROXY_SOCK="/tmp/docker-proxy.sock"
+    PROXY_PID="/tmp/docker-proxy.pid"
+    if [ ! -f "${PROXY_PID}" ] || ! ps -p $(cat ${PROXY_PID}) > /dev/null; then
+        sudo rm -rf "${PROXY_PID}"
+        (sudo socat UNIX-LISTEN:${PROXY_SOCK},fork,mode=660,user=vscode,backlog=128 UNIX-CONNECT:/var/run/docker.sock 2>&1 >/dev/null & echo "$!" | sudo tee ${PROXY_PID} > /dev/null)
+        export DOCKER_HOST="unix://${PROXY_SOCK}"
+    fi
+}
+if [ -S /var/run/docker.sock -a $(ls -al /var/run/docker.sock | awk '{print $4}') != 'docker' ]; then
+    __docker_prorxy
+fi
 # bash theme - partly inspired by https://github.com/ohmyzsh/ohmyzsh/blob/master/themes/robbyrussell.zsh-theme
 __bash_prompt() {
     local userpart='`export XIT=$? \
@@ -39,7 +52,4 @@ __bash_prompt() {
 }
 __bash_prompt
 export PROMPT_DIRTRIM=4
-if [ $(ls -al /var/run/docker.sock | awk '{print $4}') != 'docker' ]; then
-    sudo chgrp docker /var/run/docker.sock 2>&1 >/dev/null
-fi
 EOF

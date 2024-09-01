@@ -1,9 +1,9 @@
-ARG BASE_ID=20240815-01
+ARG BASE_ID=20240901-01
 FROM ghcr.io/ppoi/devcontainer-images/base:${BASE_ID}
 
 ARG JAVA_VERSION=21
 ARG NODE_VERSION=lts
-ARG MAVEN_VERSION=3.9.8
+ARG MAVEN_VERSION=3.9.9
 ARG APT_PACKAGES=
 
 RUN /opt/setup-tools/install-n.sh ${NODE_VERSION}
@@ -11,4 +11,5 @@ RUN /opt/setup-tools/install-msopenjdk.sh ${JAVA_VERSION} doxygen doxygen-awesom
 RUN /opt/setup-tools/install-maven.sh ${MAVEN_VERSION}
 
 USER vscode
+ENV MAVEN_ARGS="-Dmaven.repo.local=/workspaces/.mvn"
 VOLUME /workspaces
