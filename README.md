@@ -22,7 +22,7 @@
 | --- | --- | --- | --- |
 | NODE_VERSION | installed Node.js version | lts | ALPHA, CHARLIE |
 | JAVA_VERSION | installed MS OpenJDK Version | 21 | BRAVO, CHARLIE |
-| MAVEN_VERSION | installed Apache Maven version | 3.9.8 | BRAVO, CHARLIE |
+| MAVEN_VERSION | installed Apache Maven version | 3.9.9 | BRAVO, CHARLIE |
 | APT_PACKAGES | additional apt packge names | (empty) | All |
 
 ## Custom Setup Scripts
@@ -31,7 +31,7 @@ Any scripts in `/opt/setup-tools`
 | --- | --- | --- |
 | apt-packages | `install-apt-package [<PACKAGE> ...]` | Install & update apt packages. |
 | awscli | `install-awscli.sh` | Install Latest AWS CLI |
-| ca | `install-ca.sh <CAName> <SRC>` | Install CA cert to Container, Java default keystore. `SRC` is certification URL or absolute file path |
+| cacert | `install-cacert.sh <CAName>:<SRC> ...` | Install CA cert to Container and Java default keystore(if JVM has been installed). `SRC` is certification URL or absolute file path |
 | deb | `install-deb.sh <deb URL>` | Install deb package from URL |
 | maven | `install-maven.sh [<MAVEN_VERSION>]` | Install Maven(default:3.9.8). |
 | msopenjdk | `install-msopenjdk.sh <JAVA_VERSION> [<other package> ...]` | Install Microsoft OpenJDk(default:21) |
