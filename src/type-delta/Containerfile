@@ -1,4 +1,4 @@
-ARG BASE_ID=20240907-01
+ARG BASE_ID=20240924-01
 FROM ghcr.io/ppoi/devcontainer-images/base:${BASE_ID}
 
 ARG APT_PACKAGES=

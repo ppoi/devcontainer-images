@@ -1,4 +1,4 @@
-FROM docker.io/debian:bookworm-20240812-slim
+FROM docker.io/debian:bookworm-20240904-slim
 
 ADD scripts /opt/setup-tools
 RUN chmod -R 755 /opt/setup-tools
@@ -9,30 +9,12 @@ RUN curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor > /u
     && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(. /etc/os-release && echo "$VERSION_CODENAME") stable" > /etc/apt/sources.list.d/docker.list
 RUN /opt/setup-tools/install-apt-packages.sh docker-ce-cli
 RUN groupadd --system docker
-RUN touch /var/run/docker.sock && chown root:docker /var/run/docker.sock
+VOLUME /var/run/docker.sock
 
 RUN /opt/setup-tools/install-awscli.sh
 
 RUN useradd --uid 1000 --create-home --shell /bin/bash vscode && usermod -aG docker vscode && echo "vscode ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/vscode
 RUN tee -a /home/vscode/.bashrc <<"EOF"
-# workspace dotfile store
-if [ -d /workspaces/.local ]; then
-    sudo mkdir /workspaces/.local && sudo chown vscode:vscode .local
-fi
-# docker socket proxy
-__docker_proxy() {
-    PROXY_SOCK="/tmp/docker-proxy.sock"
-    PROXY_PID="/tmp/docker-proxy.pid"
-    if [ ! -f "${PROXY_PID}" ] || ! ps -p $(cat ${PROXY_PID}) > /dev/null; then
-        sudo rm -rf "${PROXY_PID}"
-        (sudo socat UNIX-LISTEN:${PROXY_SOCK},fork,mode=660,user=vscode,backlog=128 UNIX-CONNECT:/var/run/docker.sock 2>&1 >/dev/null & echo "$!" | sudo tee ${PROXY_PID} > /dev/null)
-    fi
-    DOCKER_HOST="unix://${PROXY_SOCK}"
-    export DOCKER_HOST
-}
-if [ -S /var/run/docker.sock -a "$(ls -al /var/run/docker.sock | awk '{print $4}')" != "docker" ]; then
-    __docker_proxy
-fi
 # bash theme - partly inspired by https://github.com/ohmyzsh/ohmyzsh/blob/master/themes/robbyrussell.zsh-theme
 __bash_prompt() {
     local userpart='`export XIT=$? \
@@ -57,4 +39,19 @@ __bash_prompt() {
 }
 __bash_prompt
 export PROMPT_DIRTRIM=4
+# docker socket proxy
+__docker_proxy() {
+    if [ -S /var/run/docker.sock -a "$(ls -al /var/run/docker.sock | awk '{print $4}')" != "docker" ]; then
+        PROXY_SOCK="/tmp/docker-proxy.sock"
+        PROXY_PID="/tmp/docker-proxy.pid"
+        if [ ! -f "${PROXY_PID}" ] || ! ps -p $(cat ${PROXY_PID}) > /dev/null; then
+            sudo rm -rf "${PROXY_PID}" "${PROXY_SOCK}"
+            (sudo socat UNIX-LISTEN:${PROXY_SOCK},fork,mode=660,user=vscode,backlog=128 UNIX-CONNECT:/var/run/docker.sock 2>&1 >/dev/null & echo "$!" | sudo tee ${PROXY_PID} > /dev/null)
+        fi
+        DOCKER_HOST="unix://${PROXY_SOCK}"
+        export DOCKER_HOST
+    fi
+    unset -f __docker_proxy
+}
+__docker_proxy
 EOF
