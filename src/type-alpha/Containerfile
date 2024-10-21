@@ -1,4 +1,4 @@
-ARG BASE_ID=20241012-01
+ARG BASE_ID=20241021-01
 FROM ghcr.io/ppoi/devcontainer-images/base:${BASE_ID}
 
 ARG NODE_VERSION=lts

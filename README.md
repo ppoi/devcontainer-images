@@ -1,7 +1,7 @@
 # Our DevContainers Pre-build Images
 
 ## base image spec
-- based on `docker.io/debian:bookworm-20240701-slim`
+- based on `docker.io/debian:bookworm-20241016-slim`
 - common development tools
   - curl, openssl, zip, unzip, iproute2, etc..
   - Docker CLI for Docker outside of Docker
@@ -33,6 +33,6 @@ Any scripts in `/opt/setup-tools`
 | awscli | `install-awscli.sh` | Install Latest AWS CLI |
 | cacert | `install-cacert.sh <CAName>:<SRC> ...` | Install CA cert to Container and Java default keystore(if JVM has been installed). `SRC` is certification URL or absolute file path |
 | deb | `install-deb.sh <deb URL>` | Install deb package from URL |
-| maven | `install-maven.sh [<MAVEN_VERSION>]` | Install Maven(default:3.9.8). |
+| maven | `install-maven.sh [<MAVEN_VERSION>]` | Install Maven(default:3.9.9). |
 | msopenjdk | `install-msopenjdk.sh <JAVA_VERSION> [<other package> ...]` | Install Microsoft OpenJDk(default:21) |
 | n | `install-n.sh <NODE_VERSION>` | Install n(node version manager. default LTS) |
