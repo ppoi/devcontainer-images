@@ -6,6 +6,7 @@ ARG APT_PACKAGES=
 
 RUN /opt/setup-tools/install-n.sh ${NODE_VERSION}
 RUN /opt/setup-tools/install-apt-packages.sh ${APT_PACKAGES}
+RUN npm install -g pnpm@latest-10
 
 USER vscode
 VOLUME /workspaces
