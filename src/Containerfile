@@ -1,4 +1,4 @@
-FROM docker.io/debian:bookworm-20250203-slim
+FROM docker.io/debian:bookworm-20250224-slim
 
 ADD scripts /opt/setup-tools
 RUN chmod -R 755 /opt/setup-tools
@@ -9,7 +9,6 @@ RUN curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor > /u
     && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(. /etc/os-release && echo "$VERSION_CODENAME") stable" > /etc/apt/sources.list.d/docker.list
 RUN /opt/setup-tools/install-apt-packages.sh docker-ce-cli
 RUN groupadd --system docker
-VOLUME /var/run/docker.sock
 
 RUN /opt/setup-tools/install-awscli.sh
 
