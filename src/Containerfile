@@ -40,7 +40,7 @@ __bash_prompt
 export PROMPT_DIRTRIM=4
 # docker socket proxy
 __docker_proxy() {
-    if [ -S /var/run/docker.sock -a "$(ls -al /var/run/docker.sock | awk '{print $4}')" != "docker" ]; then
+    if [ -S /var/run/docker.sock ] && [ "$(ls -l /var/run/docker.sock | awk '{print $4}')" != "docker" ]; then
         PROXY_SOCK="/tmp/docker-proxy.sock"
         PROXY_PID="/tmp/docker-proxy.pid"
         if [ ! -f "${PROXY_PID}" ] || ! ps -p $(cat ${PROXY_PID}) > /dev/null; then
