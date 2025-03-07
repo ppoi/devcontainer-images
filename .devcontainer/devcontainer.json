@@ -5,16 +5,11 @@
   "capAdd": ["AUDIT_WRITE"],
   "containerEnv": {"TZ": "Asia/Tokyo"},
   "postCreateCommand": {
-    "install-ca": "sudo /opt/setup-tools/install-ca.sh rdcloud ${localWorkspaceFolder}/.devcontainer/rdcloud.pem",
     "devcontainer-cli": "sudo npm i -g @devcontainers/cli"
   },
   "customizations": {
     "vscode": {
       "settings": {
-        "files.eol": "\r\n",
-        "files.encoding": "utf8",
-        "editor.tabSize": 2,
-        "editor.insertSpaces": true,
         "docker.dockerPath": "/opt/setup-tools/docker-wrapper.sh"
       },
       "extensions": [
