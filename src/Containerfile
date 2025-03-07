@@ -38,6 +38,7 @@ __bash_prompt() {
 }
 __bash_prompt
 export PROMPT_DIRTRIM=4
+
 # docker socket proxy
 __docker_proxy() {
     if [ -S /var/run/docker.sock ] && [ "$(ls -l /var/run/docker.sock | awk '{print $4}')" != "docker" ]; then
@@ -53,4 +54,10 @@ __docker_proxy() {
     unset -f __docker_proxy
 }
 __docker_proxy
+
+# XDG Base Directory Specification
+export XDG_CONFIG_HOME="${HOME}/.config"
+export XDG_DATA_HOME="${HOME}/.local/share"
+export XDG_CACHE_HOME="${HOME}/.cache"
+export XDG_STATE_HOME="${HOME}/.local/state"
 EOF
