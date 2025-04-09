@@ -1,4 +1,4 @@
-ARG BASE_ID=20250403
+ARG BASE_ID=20250409
 FROM ghcr.io/ppoi/devcontainer-images/base:${BASE_ID}
 
 ARG JAVA_VERSION=21
