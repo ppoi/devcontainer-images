@@ -1,5 +1,5 @@
 #!/bin/bash
-MAVEN_VERSION=${1:-"3.9.8"}
+MAVEN_VERSION=${1:-"3.9.10"}
 VERSION=(${MAVEN_VERSION//./ })
 echo "install maven ${MAVEN_VERSION}"
 curl -fsSL https://dlcdn.apache.org/maven/maven-${VERSION[0]}/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz | tar xz -C /opt/
