@@ -6,7 +6,7 @@ ARG APT_PACKAGES=
 
 RUN /opt/setup-tools/install-n.sh ${NODE_VERSION}
 RUN /opt/setup-tools/install-apt-packages.sh ${APT_PACKAGES}
-RUN npm install -g pnpm@latest-10
+RUN curl -fsSL https://get.pnpm.io/install.sh | ENV="/home/vscode/.bashrc" SHELL="$(which bash)" sudo -u vscode bash -
 
 USER vscode
 VOLUME /workspaces
