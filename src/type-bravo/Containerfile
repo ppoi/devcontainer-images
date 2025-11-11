@@ -9,4 +9,3 @@ RUN /opt/setup-tools/install-msopenjdk.sh ${JAVA_VERSION} doxygen doxygen-awesom
 RUN /opt/setup-tools/install-maven.sh ${MAVEN_VERSION}
 
 USER vscode
-VOLUME /workspaces

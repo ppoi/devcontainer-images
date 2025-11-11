@@ -9,4 +9,3 @@ RUN /opt/setup-tools/install-apt-packages.sh ${APT_PACKAGES}
 RUN curl -fsSL https://get.pnpm.io/install.sh | ENV="/home/vscode/.bashrc" SHELL="$(which bash)" sudo -u vscode bash -
 
 USER vscode
-VOLUME /workspaces

@@ -12,4 +12,3 @@ RUN /opt/setup-tools/install-maven.sh ${MAVEN_VERSION}
 RUN curl -fsSL https://get.pnpm.io/install.sh | ENV="/home/vscode/.bashrc" SHELL="$(which bash)" sudo -u vscode bash -
 
 USER vscode
-VOLUME /workspaces
