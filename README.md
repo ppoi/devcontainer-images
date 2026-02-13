@@ -1,7 +1,7 @@
 # Our DevContainers Pre-build Images
 
 ## base image spec
-- based on `docker.io/debian:bookworm-20241016-slim`
+- based on `docker.io/debian:bookworm-20260202-slim`
 - common development tools
   - curl, openssl, zip, unzip, iproute2, etc..
   - Docker CLI for Docker outside of Docker
