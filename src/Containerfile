@@ -1,4 +1,4 @@
-FROM docker.io/debian:bookworm-20260202-slim
+FROM docker.io/debian:bookworm-slim
 
 ADD scripts /opt/setup-tools
 RUN chmod -R 755 /opt/setup-tools
@@ -9,8 +9,6 @@ RUN curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor > /u
     && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(. /etc/os-release && echo "$VERSION_CODENAME") stable" > /etc/apt/sources.list.d/docker.list
 RUN /opt/setup-tools/install-apt-packages.sh docker-ce-cli
 RUN groupadd --system docker
-
-RUN /opt/setup-tools/install-awscli.sh
 
 RUN useradd --uid 1000 --create-home --shell /bin/bash vscode && usermod -aG docker vscode && echo "vscode ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/vscode
 RUN tee -a /home/vscode/.bashrc <<"EOF"

@@ -34,6 +34,12 @@ jobs:
           tags: ghcr.io/${{github.actor}}/devcontainer-images/base:${{steps.meta.outputs.version}},ghcr.io/${{github.actor}}/devcontainer-images/base:latest
           labels: ${{ steps.meta.outputs.labels }}
           push: true
+      - name: Delete old packges(base)
+        uses: actions/delete-package-versions@v5
+        with:
+          package-name: 'devcontainer-images/base'
+          package-type: 'container'
+          min-versions-to-keep: 6
       - name: Build Type-ALPHA image
         id: type-alpha
         uses: docker/build-push-action@v5
@@ -45,6 +51,12 @@ jobs:
           tags: ghcr.io/${{github.actor}}/devcontainer-images/type-alpha:${{steps.meta.outputs.version}},ghcr.io/${{github.actor}}/devcontainer-images/type-alpha:latest
           labels: ${{ steps.meta.outputs.labels }}
           push: true
+      - name: Delete old packges(Type-ALPHA)
+        uses: actions/delete-package-versions@v5
+        with:
+          package-name: 'devcontainer-images/type-alpha'
+          package-type: 'container'
+          min-versions-to-keep: 6
       - name: Build Type-BRAVO image
         id: type-bravo
         uses: docker/build-push-action@v5
@@ -56,6 +68,12 @@ jobs:
           tags: ghcr.io/${{github.actor}}/devcontainer-images/type-bravo:${{steps.meta.outputs.version}},ghcr.io/${{github.actor}}/devcontainer-images/type-bravo:latest
           labels: ${{ steps.meta.outputs.labels }}
           push: true
+      - name: Delete old packges(Type-BRAVO)
+        uses: actions/delete-package-versions@v5
+        with:
+          package-name: 'devcontainer-images/type-bravo'
+          package-type: 'container'
+          min-versions-to-keep: 6
       - name: Build Type-CHARLIE image
         id: type-charlie
         uses: docker/build-push-action@v5
@@ -67,14 +85,9 @@ jobs:
           tags: ghcr.io/${{github.actor}}/devcontainer-images/type-charlie:${{steps.meta.outputs.version}},ghcr.io/${{github.actor}}/devcontainer-images/type-charlie:latest
           labels: ${{ steps.meta.outputs.labels }}
           push: true
-      - name: Build Type-DELTA image
-        id: type-delta
-        uses: docker/build-push-action@v5
+      - name: Delete old packges(Type-CHARLIE)
+        uses: actions/delete-package-versions@v5
         with:
-          context: ./src/type-charlie
-          file: ./src/type-charlie/Containerfile
-          build-args: |
-            BASE_ID=${{steps.meta.outputs.version}}
-          tags: ghcr.io/${{github.actor}}/devcontainer-images/type-delta:${{steps.meta.outputs.version}},ghcr.io/${{github.actor}}/devcontainer-images/type-delta:latest
-          labels: ${{ steps.meta.outputs.labels }}
-          push: true
+          package-name: 'devcontainer-images/type-charlie'
+          package-type: 'container'
+          min-versions-to-keep: 6
