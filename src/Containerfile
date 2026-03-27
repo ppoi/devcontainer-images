@@ -37,22 +37,6 @@ __bash_prompt() {
 __bash_prompt
 export PROMPT_DIRTRIM=4
 
-# docker socket proxy
-__docker_proxy() {
-    if [ -S /var/run/docker.sock ] && [ "$(ls -l /var/run/docker.sock | awk '{print $4}')" != "docker" ]; then
-        PROXY_SOCK="/tmp/docker-proxy.sock"
-        PROXY_PID="/tmp/docker-proxy.pid"
-        if [ ! -f "${PROXY_PID}" ] || ! ps -p $(cat ${PROXY_PID}) > /dev/null; then
-            sudo rm -rf "${PROXY_PID}" "${PROXY_SOCK}"
-            (sudo socat UNIX-LISTEN:${PROXY_SOCK},fork,mode=660,user=vscode,backlog=128 UNIX-CONNECT:/var/run/docker.sock 2>&1 >/dev/null & echo "$!" | sudo tee ${PROXY_PID} > /dev/null)
-        fi
-        DOCKER_HOST="unix://${PROXY_SOCK}"
-        export DOCKER_HOST
-    fi
-    unset -f __docker_proxy
-}
-__docker_proxy
-
 # XDG Base Directory Specification
 export XDG_CONFIG_HOME="${HOME}/.config"
 export XDG_DATA_HOME="${HOME}/.local/share"
