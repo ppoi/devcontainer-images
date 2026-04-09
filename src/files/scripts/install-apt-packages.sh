@@ -9,5 +9,5 @@ if [ ! -z "${*}" ]; then
 fi
 apt-get -y upgrade --no-install-recommends
 apt-get autoremove -y
-rm -rf /var/lib/apt-lists/*
+rm -rf /var/lib/apt/lists/*
 echo "Done!"

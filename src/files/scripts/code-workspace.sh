@@ -13,4 +13,4 @@ if [ ! -f ${WORKSPACE_SPEC} ]; then
 }
 EOF
 fi
-tail -f /dev/null
+exec tail -f /dev/null

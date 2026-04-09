@@ -39,7 +39,7 @@ jobs:
         with:
           package-name: 'devcontainer-images/base'
           package-type: 'container'
-          min-versions-to-keep: 6
+          min-versions-to-keep: 12
       - name: Build Type-ALPHA image
         id: type-alpha
         uses: docker/build-push-action@v5
@@ -56,8 +56,8 @@ jobs:
         with:
           package-name: 'devcontainer-images/type-alpha'
           package-type: 'container'
-          min-versions-to-keep: 6
-      - name: Build Type-BRAVO image
+          min-versions-to-keep: 12
+      - name: Build Type-BRAVO image(JDK21)
         id: type-bravo
         uses: docker/build-push-action@v5
         with:
@@ -68,13 +68,25 @@ jobs:
           tags: ghcr.io/${{github.actor}}/devcontainer-images/type-bravo:${{steps.meta.outputs.version}},ghcr.io/${{github.actor}}/devcontainer-images/type-bravo:latest
           labels: ${{ steps.meta.outputs.labels }}
           push: true
+      - name: Build Type-BRAVO image(JDK25)
+        id: type-bravo-25
+        uses: docker/build-push-action@v5
+        with:
+          context: ./src/type-bravo
+          file: ./src/type-bravo/Containerfile
+          build-args: |
+            BASE_ID=${{steps.meta.outputs.version}}
+            JAVA_VERSION=25
+          tags: ghcr.io/${{github.actor}}/devcontainer-images/type-bravo:25-${{steps.meta.outputs.version}},ghcr.io/${{github.actor}}/devcontainer-images/type-bravo:25-latest
+          labels: ${{ steps.meta.outputs.labels }}
+          push: true
       - name: Delete old packges(Type-BRAVO)
         uses: actions/delete-package-versions@v5
         with:
           package-name: 'devcontainer-images/type-bravo'
           package-type: 'container'
-          min-versions-to-keep: 6
-      - name: Build Type-CHARLIE image
+          min-versions-to-keep: 12
+      - name: Build Type-CHARLIE image(JDK21)
         id: type-charlie
         uses: docker/build-push-action@v5
         with:
@@ -85,9 +97,21 @@ jobs:
           tags: ghcr.io/${{github.actor}}/devcontainer-images/type-charlie:${{steps.meta.outputs.version}},ghcr.io/${{github.actor}}/devcontainer-images/type-charlie:latest
           labels: ${{ steps.meta.outputs.labels }}
           push: true
+      - name: Build Type-CHARLIE image(JDK25)
+        id: type-charlie-25
+        uses: docker/build-push-action@v5
+        with:
+          context: ./src/type-charlie
+          file: ./src/type-charlie/Containerfile
+          build-args: |
+            BASE_ID=${{steps.meta.outputs.version}}
+            JAVA_VERSION=25
+          tags: ghcr.io/${{github.actor}}/devcontainer-images/type-charlie:25-${{steps.meta.outputs.version}},ghcr.io/${{github.actor}}/devcontainer-images/type-charlie:25-latest
+          labels: ${{ steps.meta.outputs.labels }}
+          push: true
       - name: Delete old packges(Type-CHARLIE)
         uses: actions/delete-package-versions@v5
         with:
           package-name: 'devcontainer-images/type-charlie'
           package-type: 'container'
-          min-versions-to-keep: 6
+          min-versions-to-keep: 12

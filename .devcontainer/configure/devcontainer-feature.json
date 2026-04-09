@@ -1,0 +1,8 @@
+{
+  "id": "configure",
+  "version": "1.0.0",
+  "mounts": [{"source": "/var/run/docker.sock", "target": "/var/run/docker-host.sock", "type": "bind"}],
+  "capAdd": ["AUDIT_WRITE"],
+  "containerEnv": {"TZ": "Asia/Tokyo"},
+  "entrypoint": "/usr/local/share/entrypoint.sh"
+}

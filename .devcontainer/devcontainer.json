@@ -1,11 +1,12 @@
 {
   "name": "devcontainer-images",
-  "image": "ghcr.io/ppoi/devcontainer-images/type-alpha:latest",
-  "capAdd": ["AUDIT_WRITE"],
-  "containerEnv": {"TZ": "Asia/Tokyo"},
+  "build": {
+    "dockerfile": "${localWorkspaceFolder}/src/Containerfile",
+    "context": "${localWorkspaceFolder}/src/"
+  },
+  "containerUser": "vscode",
   "features": {
-    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
-    "./devcontainerscli": {}
+    "./configure": {}
   },
   "customizations": {
     "vscode": {

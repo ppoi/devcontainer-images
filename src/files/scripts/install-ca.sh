@@ -5,12 +5,6 @@ set -e
 CA_DATA=""
 if echo "$2" | grep -E '^http(s)?://.*$' > /dev/null; then
   echo "cert from URL"
-  if which curl; then
-    echo "curl ready."
-  else
-    echo "install curl"
-    sudo /opt/install-apt-packages.sh curl
-  fi
   CERT_DATA=$(curl -kL "$2")
 elif [ -f "$2" ]; then
   echo "cert from file: $2"

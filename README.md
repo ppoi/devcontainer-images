@@ -1,7 +1,7 @@
 # Our DevContainers Pre-build Images
 
 ## base image spec
-- based on `docker.io/debian:bookworm-20260202-slim`
+- based on `docker.io/debian:bookworm-slim`
 - common development tools
   - curl, openssl, zip, unzip, iproute2, etc..
   - Docker CLI for Docker outside of Docker
@@ -28,9 +28,20 @@ Any scripts in `/opt/setup-tools`
 | NAME | USAGE | DESCRIPTION |
 | --- | --- | --- |
 | apt-packages | `install-apt-package [<PACKAGE> ...]` | Install & update apt packages. |
-| awscli | `install-awscli.sh` | Install Latest AWS CLI |
 | cacert | `install-cacert.sh <CAName>:<SRC> ...` | Install CA cert to Container and Java default keystore(if JVM has been installed). `SRC` is certification URL or absolute file path |
 | deb | `install-deb.sh <deb URL>` | Install deb package from URL |
 | maven | `install-maven.sh [<MAVEN_VERSION>]` | Install Maven(default:3.9.14). |
 | msopenjdk | `install-msopenjdk.sh <JAVA_VERSION> [<other package> ...]` | Install Microsoft OpenJDk(default:21) |
 | n | `install-n.sh <NODE_VERSION>` | Install n(node version manager. default LTS) |
+
+## Docker outside of Docker Usage
+### non-root user(`vscode`)
+Specify volume option to mount a host docker socket(`/var/run/docker.sock`) to container's one(`/var/run/docker-host.sock`)
+```
+docker run ... --volume /var/run/docker.sock:/var/run/docker-host.sock
+```
+### root user
+Specify volume option to mount a host docker socket(`/var/run/docker.sock`) to container's one(`/var/run/docker.sock`)
+```
+docker run ... --volume /var/run/docker.sock:/var/run/docker.sock
+```
