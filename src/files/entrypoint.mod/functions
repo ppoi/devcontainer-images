@@ -1,0 +1,20 @@
+#!/bin/bash
+
+ENTRYPOINT_DROPIN_DIR=${ENTRYPOINT_DROPIN_DIR:-/usr/local/share/entrypoint.d}
+
+function enable-entrypoint-module() {
+  SCRIPT=$1
+  if [ -L ${ENTRYPOINT_DROPIN_DIR}/${SCRIPT} -a ! -e ${ENTRYPOINT_DROPIN_DIR}/${SCRIPT} ]; then
+    echo "relink module: ${SCRIPT}"
+    sudo unlink ${ENTRYPOINT_DROPIN_DIR}/${SCRIPT}
+  elif [ -f ${ENTRYPOINT_DROPIN_DIR}/${SCRIPT} ]; then
+      echo "already deployed module: ${SCRIPT}"
+      return
+  fi
+  sudo ln -s /usr/local/share/entrypoint.mod/${SCRIPT} ${ENTRYPOINT_DROPIN_DIR}/${SCRIPT}
+}
+function disable-entrypoint-module() {
+  SCRIPT=$1
+  sudo unlink ${ENTRYPOINT_DROPIN_DIR}/${SCRIPT}
+}
+## 対象がシンボリックリンクで実体があるか、実ファイル

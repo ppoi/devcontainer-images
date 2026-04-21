@@ -86,6 +86,9 @@ chmod 755 /opt/setup-tools/*.sh
 cp ${BASEDIR}/entrypoint.sh /usr/local/share/
 chmod 755 /usr/local/share/entrypoint.sh
 
+cp -r ${BASEDIR}/entrypoint.mod /usr/local/share/
+chmod 755 /usr/local/share/entrypoint.mod/*.sh
+
 mkdir /usr/local/share/entrypoint.d
 
 cp ${BASEDIR}/NOTIC /etc/NOTICE-devcontainer-images-base

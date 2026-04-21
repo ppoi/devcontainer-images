@@ -2,7 +2,7 @@ ARG BASE_ID=latest
 FROM ghcr.io/ppoi/devcontainer-images/base:${BASE_ID}
 
 ARG JAVA_VERSION=21
-ARG MAVEN_VERSION=3.9.14
+ARG MAVEN_VERSION=3.9.15
 ARG APT_PACKAGES=
 
 RUN /opt/setup-tools/install-msopenjdk.sh ${JAVA_VERSION} doxygen doxygen-awesome-css ${APT_PACKAGES} \

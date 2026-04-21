@@ -3,6 +3,6 @@ FROM docker.io/debian:bookworm-slim
 COPY files/ /tmp/files/
 RUN chmod -R 755 /tmp/files/install.sh && /tmp/files/install.sh && rm -rf /tmp/files
 
-VOLUME /workspaces
+ENV ENTRYPOINT_DROPIN_DIR=/usr/local/share/entrypoint.d
 ENTRYPOINT [ "/usr/local/share/entrypoint.sh" ]
 CMD [ "/bin/bash" ]
