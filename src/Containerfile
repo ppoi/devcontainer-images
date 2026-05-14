@@ -4,5 +4,6 @@ COPY files/ /tmp/files/
 RUN chmod -R 755 /tmp/files/install.sh && /tmp/files/install.sh && rm -rf /tmp/files
 
 ENV ENTRYPOINT_DROPIN_DIR=/usr/local/share/entrypoint.d
+USER vscode
 ENTRYPOINT [ "/usr/local/share/entrypoint.sh" ]
 CMD [ "/bin/bash" ]

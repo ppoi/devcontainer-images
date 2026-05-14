@@ -4,9 +4,8 @@ FROM ghcr.io/ppoi/devcontainer-images/base:${BASE_ID}
 ARG NODE_VERSION=lts
 ARG APT_PACKAGES=
 
-RUN /opt/setup-tools/install-n.sh ${NODE_VERSION} \
-  && /opt/setup-tools/install-apt-packages.sh ${APT_PACKAGES} \
-  && curl -fsSL https://get.pnpm.io/install.sh | ENV="/home/vscode/.bashrc" SHELL="$(which bash)" sudo -u vscode bash -
-
 USER vscode
-CMD [ "/usr/bin/tail", "-f", "/dev/null" ]
+
+RUN sudo /opt/setup-tools/install-n.sh ${NODE_VERSION} \
+  && sudo /opt/setup-tools/install-apt-packages.sh libatomic1 ${APT_PACKAGES} \
+  && curl -fsSL https://get.pnpm.io/install.sh | ENV="/home/vscode/.bashrc" SHELL="$(which bash)" bash -
