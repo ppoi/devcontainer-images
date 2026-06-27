@@ -3,7 +3,7 @@ FROM ghcr.io/ppoi/devcontainer-images/base:${BASE_ID}
 
 ARG JAVA_VERSION=21
 ARG NODE_VERSION=lts
-ARG MAVEN_VERSION=3.9.15
+ARG MAVEN_VERSION=3.9.16
 ARG APT_PACKAGES=
 
 USER vscode
