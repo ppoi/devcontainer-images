@@ -12,14 +12,14 @@
 | Type | Repo  | Description |
 | --- | --- | --- |
 | ALPHA | devcotainer-images/type-alpha | DevContainer for Node.js |
-| BRAVO | devcotainer-images/type-bravo | DevContainer for Java(Microsoft OpenJDK) |
+| BRAVO | devcotainer-images/type-bravo | DevContainer for Java(Eclipse Temurin OpenJDK) |
 | CHARLIE | devcontainer-images/type-charlie | DevContainer for Node.js & Java |
 
 ## Build ARGs
 | ARG | DESCRIPTION | DEFAULT | Images |
 | --- | --- | --- | --- |
 | NODE_VERSION | installed Node.js version | lts | ALPHA, CHARLIE |
-| JAVA_VERSION | installed MS OpenJDK Version | 21 | BRAVO, CHARLIE |
+| JAVA_VERSION | installed Eclipse Temurin OpenJDK Version | 21 | BRAVO, CHARLIE |
 | MAVEN_VERSION | installed Apache Maven version | 3.9.16 | BRAVO, CHARLIE |
 | APT_PACKAGES | additional apt packge names | (empty) | All |
 
@@ -31,8 +31,8 @@ Any scripts in `/opt/setup-tools`
 | cacert | `install-cacert.sh <CAName>:<SRC> ...` | Install CA cert to Container and Java default keystore(if JVM has been installed). `SRC` is certification URL or absolute file path |
 | deb | `install-deb.sh <deb URL>` | Install deb package from URL |
 | maven | `install-maven.sh [<MAVEN_VERSION>]` | Install Maven(default:3.9.16). |
-| msopenjdk | `install-msopenjdk.sh <JAVA_VERSION> [<other package> ...]` | Install Microsoft OpenJDk(default:21) |
-| n | `install-n.sh <NODE_VERSION>` | Install n(node version manager. default LTS) |
+| openjdk | `install-openjdk.sh <JAVA_VERSION> [<other package> ...]` | Install Eclipse Temurin OpenJDk(default:21) |
+| n | `install-n.sh <NODE_VERSION>` | Install n(Node.js version manager) (default LTS) |
 
 ## Docker outside of Docker Usage
 ### non-root user(`vscode`)
