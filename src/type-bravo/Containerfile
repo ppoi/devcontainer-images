@@ -7,5 +7,5 @@ ARG APT_PACKAGES=
 
 USER vscode
 
-RUN sudo /opt/setup-tools/install-msopenjdk.sh ${JAVA_VERSION} doxygen doxygen-awesome-css ${APT_PACKAGES} \
+RUN sudo /opt/setup-tools/install-openjdk.sh ${JAVA_VERSION} doxygen doxygen-awesome-css ${APT_PACKAGES} \
   && sudo /opt/setup-tools/install-maven.sh ${MAVEN_VERSION}

@@ -1,4 +1,4 @@
-FROM docker.io/debian:bookworm-slim
+FROM docker.io/debian:trixie-slim
 
 COPY files/ /tmp/files/
 RUN chmod -R 755 /tmp/files/install.sh && /tmp/files/install.sh && rm -rf /tmp/files
