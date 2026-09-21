@@ -2,15 +2,15 @@
 PROJECT_NAME=${1:-devenv}
 WORKSPACE_SPEC="/workspaces/${PROJECT_NAME}.code-workspace"
 if [ ! -f ${WORKSPACE_SPEC} ]; then
-  tee ${WORKSPACE_SPEC} <<EOF
+  sudoIf tee ${WORKSPACE_SPEC} <<EOF
 {
   "folders": [
     {
-      "name": "devenv",
-      "path": "/workspaces/devenv"
+      "name": "${PROJECT_NAME}",
+      "path": "/workspaces/${PROJECT_NAME}"
     }
   ]
 }
 EOF
+  sudoIf chown $(id -u):$(id -g) ${WORKSPACE_SPEC}
 fi
-exec tail -f /dev/null
